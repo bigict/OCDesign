@@ -1,4 +1,11 @@
 # OCDesign
+![OCDesign method overview](images/OCDesign.png)
+OCDesign works as following steps:
+Step 1: Design protein sequences (NeuralMRF, ProDESIGN-LE, or other methods you like)
+Step 2: Assess your proteins for the properties (Solubility, Energy, or all other properties you need)
+Step 3: Select pareto fronts for the next wet-lab validation
+Step 4: Feedback From the wet-lab to correct your Step1-3
+
 
 ## NeuralMRF: Design protein sequence for a given protein structure
 * Input: Protein structure (.pdb file)
@@ -30,5 +37,5 @@
 SWEDIVDEEFVGQGKVDKAALLSLDGTVLASSEGFTVTKEEGVKLAKAFEDPSEVKKNGFELDGVHYKVEEATDEEIIGKNGDEGVVCRKLPNCILVGYYTANQDKEEAKKVVKELAKKLEEKGW
 
 ## Pareto front selecetion
-> python pareto_frontier.py CSVFILE 'Property1:[min|max],Property2:[min:max]'
+>python pareto_frontier.py CSVFILE 'Property1:[min|max],Property2:[min:max]'
 python  pareto_frontier.py  example/pareto/r2_pareto.csv --sort 'RMSD_VAR:min,MMGBS:min,Solubility:max'
