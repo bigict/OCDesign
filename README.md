@@ -1,4 +1,4 @@
-# OCDesign
+# OCDesign: Objective curriculum-guided design of multi-property proteins
 ![OCDesign method overview](images/OCDesign.png)
 OCDesign works as following steps:
 * Step 1: Design protein sequences (NeuralMRF, ProDESIGN-LE, or other methods you like)
