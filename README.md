@@ -36,14 +36,28 @@ pip install torch==1.10.1+cu111 torchvision==0.11.2+cu111 torchaudio==0.10.1 -f 
 * The program read the name, sequence, the 3D coordinates of CA, C, A, O atoms of the given chain of the protein in assigned .pdb file firstly, then store what we get to the "test.jsonl" file in current folder
 * Then, create tensors based on the information, and generate samples according to the random seed. After process, we design the protein sequence and store in the .jsonl file with correspond name in the subfolder "generated_fasta"
 
-### Execute example
+### Execute example and result we got
 ```
-python run_neuralmrf.py --seed 37 --chain "A" --fix_native_pos 0 3 --fix_native_val "A" "C" --pdb_path "1acf.pdb"
-```
-* It means to choose 37 as the random seed, assign A-chain with the zero and third digit are replaced to "A" and "C" to handle "1acf.pdb"
-* Result we get：
->\>1ACF_A Identity:0.416
-SWEDIVDEEFVGQGKVDKAALLSLDGTVLASSEGFTVTKEEGVKLAKAFEDPSEVKKNGFELDGVHYKVEEATDEEIIGKNGDEGVVCRKLPNCILVGYYTANQDKEEAKKVVKELAKKLEEKGW
+# run neuralmrf to design protein sequence that fix residues as we did in round 1
+python run_neuralmrf.py --seed 37 --chain A --fix_file example/fix_file/round1.txt --pdb_path example/pdb/5u4y.pdb --device 1
+================================================================================
+>5u4y Identity:0.4339622641509434
+SDNALQNAMKEIQHLPNLDEAEKNSFLLALVLDPSAAEVLRAEARQINIDRQP
+================================================================================
+
+# run neuralmrf to design protein sequence that fix residues as we did in round 2
+python run_neuralmrf.py --seed 37 --chain A --fix_file example/fix_file/round2.txt --pdb_path example/pdb/5u4y.pdb --device 1
+================================================================================
+>5u4y Identity:0.660377358490566
+FNKAQQNAFYEILHLPNLDEAQKNSFILRLKLDPSAAEVLRAEARQINIDQAP
+================================================================================
+
+# run neuralmrf to design protein sequence that fix residues as we did in round 3
+python run_neuralmrf.py --seed 37 --chain A --fix_file example/fix_file/round3.txt --pdb_path example/pdb/5u4y.pdb --device 1
+================================================================================
+>5u4y Identity:0.660377358490566
+FAKAQQNAFYEILHLPNLTEEQKNWFILRLKLDPSVAEVLRAEARQINIDQAP
+================================================================================
 
 ## Pareto front selecetion
 ```
