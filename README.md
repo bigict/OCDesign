@@ -4,7 +4,7 @@ OCDesign works as following steps:
 * Step 1: Design protein sequences (NeuralMRF, ProDESIGN-LE, or other methods you like)
 * Step 2: Assess your proteins for the properties (Solubility, Energy, or all other properties you need)
 * Step 3: Select pareto fronts for the next wet-lab validation
-* Step 4: Feedback From the wet-lab to correct your Step 1-3
+* Step 4: Feedback from the wet-lab to correct your Step 1-3
 
 
 ## NeuralMRF: Design protein sequence for a given protein structure
