@@ -14,13 +14,14 @@ import random
 import itertools
 import torch.distributed as dist
 from einops import rearrange
-from fix_position import fix_
+# from fix_position import fix_
 from einops import rearrange
 import torch.distributions as dists
 import cvxpy as cp
 
 
 #A number of functions/classes are adopted from: https://github.com/jingraham/neurips19-graph-protein-design
+alphabet = 'ACDEFGHIKLMNPQRSTVWYX'
 
 def _scores(S, log_probs, mask):
     """ Negative log probabilities """
@@ -1097,7 +1098,7 @@ class ProteinMPNN(nn.Module):
         return mrf_logits, regularization_items
 
 
-    def sample(self, X, chain_encoding_all, residue_idx, mask, S, fix=False, ContGreedy=False, fixed_positions = None):
+    def sample(self, X, chain_encoding_all, residue_idx, mask, S, fix=False, ContGreedy=False, fix_dict = None, fixed_positions = None):
         device = X.device
         # Prepare node and edge embeddings
         E, E_idx = self.features(X, mask, residue_idx, chain_encoding_all)
@@ -1158,6 +1159,23 @@ class ProteinMPNN(nn.Module):
                 init_seq = torch.from_numpy(x.value).reshape(L, -1).argmax(dim=1).to(device)
                 cont_relax_seq = init_seq.clone()
                 cont_relax_seqs.append(cont_relax_seq)
+                # fix residues for decode protein sequence
+                for resi,resn in fix_dict.items():init_seq[resi - 1] = alphabet.find(resn)
+                for p in range(2):
+                    for l in range(L):
+                        if l in fixed_positions:continue
+                        positionP = torch.zeros(20).to(device)
+                        for a in range(20):
+                            init_seq[l] = a
+                            s_idx = init_seq + torch.linspace(0, num_letters*(L-1), L).type(torch.LongTensor).to(device)
+                            item_1 = h[b, l, a]
+                            item_2 = torch.permute(J, (0,1,3,2,4))[b, l, a, :, :].reshape(-1)[s_idx].sum()
+                            item = item_1 + item_2
+                            positionP[a] = item
+                        idx = torch.argmax(nn.Softmax(dim=-1)(positionP))
+                        init_seq[l] = idx
+                '''
+                # source version from xinglong
                 for p in range(2):
                     for l in range(L):
                         positionP = torch.zeros(20).to(device)
@@ -1170,7 +1188,7 @@ class ProteinMPNN(nn.Module):
                             positionP[a] = item
                         idx = torch.argmax(nn.Softmax(dim=-1)(positionP))
                         init_seq[l] = idx
-                
+                '''
                 s_idx = init_seq + torch.linspace(0, num_letters * (L-1), L).type(torch.LongTensor).to(device)
                 j_idx = torch.meshgrid(s_idx, s_idx)
                 target_value_ContGreedy = (h[b].reshape(-1)[s_idx].sum() + torch.permute(J, (0,1,3,2,4))[b].reshape(L * num_letters, -1)[j_idx].sum()).item()
@@ -1192,9 +1210,11 @@ class ProteinMPNN(nn.Module):
         if fix:
             for b in range(B):
                 init_seq = torch.randint(0, 20, (1, L)).squeeze().to(device)
+                '''
                 assert fixed_positions is not None,"fixed position is None"
                 fix_position = [int(position) - 1 for position in fixed_positions]
                 init_seq[fix_position] = S[b][fix_position]
+                for resi,resn in fix_position.items():init_seq[resi - 1] = resn
                 for p in range(2):
                     for l in range(L):
                         if l not in fix_position:
@@ -1208,6 +1228,22 @@ class ProteinMPNN(nn.Module):
                                 positionP[a] = item
                             idx = torch.argmax(nn.Softmax(dim=-1)(positionP))
                             init_seq[l] = idx
+                '''
+                # fix residues for decode protein sequence
+                for resi,resn in fix_dict.items():init_seq[resi - 1] = alphabet.find(resn)
+                for p in range(2):
+                    for l in range(L):
+                        if l in fixed_positions:continue
+                        positionP = torch.zeros(20).to(device)
+                        for a in range(20):
+                            init_seq[l] = a
+                            s_idx = init_seq + torch.linspace(0, num_letters*(L-1), L).type(torch.LongTensor).to(device)
+                            item_1 = h[b, l, a]
+                            item_2 = torch.permute(J, (0,1,3,2,4))[b, l, a, :, :].reshape(-1)[s_idx].sum()                    
+                            item = item_1 + item_2
+                            positionP[a] = item
+                        idx = torch.argmax(nn.Softmax(dim=-1)(positionP))
+                        init_seq[l] = idx
                 sampled_seqs.append(init_seq)
             return sampled_seqs
         else:
@@ -1393,7 +1429,8 @@ class ProteinMPNN_CD(nn.Module):
             for b in range(B):
                 init_seq = torch.randint(0, 20, (1, L)).squeeze().to(device)
                 # fix_position = [5, 6, 19, 23]# fix_()
-                init_seq[fix_position] = S[b][fix_position]
+                # init_seq[fix_position] = S[b][fix_position]
+                for resi,resn in fix_position.items():init_seq[resi - 1] = resn
                 for p in range(2):
                     for l in range(L):
                         if l not in fix_position:
@@ -1554,8 +1591,9 @@ class ProteinMPNN_CD_DMALA(nn.Module):
         if fix:
             for b in range(B):
                 init_seq = torch.randint(0, 20, (1, L)).squeeze().to(device)
-                fix_position = [5, 6, 19, 23]# fix_()
-                init_seq[fix_position] = S[b][fix_position]
+                # fix_position = [5, 6, 19, 23]# fix_()
+                # init_seq[fix_position] = S[b][fix_position]
+                for resi,resn in fix_position.items():init_seq[resi - 1] = resn
                 for p in range(2):
                     for l in range(L):
                         if l not in fix_position:
