@@ -18,10 +18,8 @@ conda env create -f environment.yaml
 conda activate neuralmrf
 pip install torch==1.10.1+cu111 torchvision==0.11.2+cu111 torchaudio==0.10.1 -f https://download.pytorch.org/whl/cu111/torch_stable.html
 ```
-* All the setup information needed is stored in "environment_droplet.yml" file in target folder (NeuralMRF)
-* To setup environment, locate the target folder, use command "conda env create -f environment.yaml"
 
-### Parameter of the run_neuralmrf
+### Key parameter of the run_neuralmrf.py
 ```
 --seed: A random seed can influence the sequence we design 
 --checkpoint_path: model file
@@ -32,9 +30,6 @@ pip install torch==1.10.1+cu111 torchvision==0.11.2+cu111 torchaudio==0.10.1 -f 
 --output_file: write the design sequence into which file, Not required
 ```
 
-### Brief description
-* The program read the name, sequence, the 3D coordinates of CA, C, A, O atoms of the given chain of the protein in assigned .pdb file firstly, then store what we get to the "test.jsonl" file in current folder
-* Then, create tensors based on the information, and generate samples according to the random seed. After process, we design the protein sequence and store in the .jsonl file with correspond name in the subfolder "generated_fasta"
 
 ### Execute example and result we got
 ```
