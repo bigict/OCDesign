@@ -23,13 +23,13 @@ pip install torch==1.10.1+cu111 torchvision==0.11.2+cu111 torchaudio==0.10.1 -f 
 
 ### Parameter of the run_neuralmrf
 ```
---seed: A random seed, which can influence the sequence we design and some variables like "identity", the input type is int, default to 0, which means choose an integer randomly from 0 to 999 as the seed. Please do NOT input negative seed
---checkedpoint_path: An address point to the model file, the input type is string, default to point to the "model_110.pth" file in "NeuralMRF" folder 
---device: GPU choice, the input type is string, default to "1", which means the device is "cuda:1"
---chain: Assigned chain, the input type is string, default to "C", which means to choose C-chain. If an assigned chain is needed, please assign a SINGLE chain
---fix_native_pos: the sequence position of assigned amino acids, the input type is int, default to none
---fix_native_val: the type of assigned amino acids, the input type is string, which means the single letter abbreviation of the amino acid, default to none. If an assigned amino acid is needed, plese match the "fix_native_pos" and "fix_native_val" one by one.
---pdb_path: The location of .pdb file we want to handle, the input type is string, default to the "5U4Y_C.pdb" file in "MPNN_dataset" folder
+--seed: A random seed can influence the sequence we design 
+--checkpoint_path: model file
+--device: which rank gpu to run neuralmrf
+--pdb_path: input pdb file
+--chain: select chain in the pdb file as the input 
+--fix_file: file that specify fixing residues in some positions
+--output_file: write the design sequence into which file, Not required
 ```
 
 ### Brief description
@@ -58,6 +58,7 @@ python run_neuralmrf.py --seed 37 --chain A --fix_file example/fix_file/round3.t
 >5u4y Identity:0.660377358490566
 FAKAQQNAFYEILHLPNLTEEQKNWFILRLKLDPSVAEVLRAEARQINIDQAP
 ================================================================================
+```
 
 ## Pareto front selecetion
 ```
