@@ -183,6 +183,6 @@ The citation will be updated after publication.
 ## Contact
 For questions, please contact:
 
-Dongbo Bu (Corresponding author): dbu@ict.ac.cn
+Dongbo Bu (Corresponding author): dbu@ict.ac.cn  
 Jianquan Zhao (Co-first author): zhaojianquan@ict.ac.cn
 
