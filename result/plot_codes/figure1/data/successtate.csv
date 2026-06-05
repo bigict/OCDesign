@@ -1,0 +1,21 @@
+﻿Round,Success rate,Property
+Round 0,50,Expressible
+Round 0,0,"Binding 
+affinity"
+Round 0,0,"Alkaline 
+resistant"
+Round 1,100,Expressible
+Round 1,0,"Binding 
+affinity"
+Round 1,0,"Alkaline 
+resistant"
+Round 2,100,Expressible
+Round 2,100,"Binding 
+affinity"
+Round 2,0,"Alkaline 
+resistant"
+Round 3,100,Expressible
+Round 3,60,"Binding 
+affinity"
+Round 3,40,"Alkaline 
+resistant"

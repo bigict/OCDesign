@@ -1,0 +1,23 @@
+# This file was created Sat May  9 11:02:22 2026
+# Created by:
+#                     :-) GROMACS - gmx cluster, 2024.2 (-:
+# 
+# Executable:   /home/liufan/GMX/2024.2/bin/gmx
+# Data prefix:  /home/liufan/GMX/2024.2
+# Working dir:  /mnt/data1/home/liufan/protein_A_gromacs_md/new_structures/wl_model_new_md_run
+# Command line:
+#   gmx cluster -s prot_only_temp.tpr -f final_fit_dt100.xtc -method gromos -cutoff 1.0 -g cluster.log -cl clusters.pdb -sz clust_size.xvg
+# gmx cluster is part of G R O M A C S:
+#
+# Glycine aRginine prOline Methionine Alanine Cystine Serine
+#
+@    title "Cluster Sizes"
+@    xaxis  label "Cluster #"
+@    yaxis  label "# Structures"
+@TYPE xy
+@g0 type bar
+       1     1838
+       2      107
+       3       44
+       4        8
+       5        4
