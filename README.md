@@ -41,6 +41,14 @@ You need install PyTorch (the CUDA 11.1 version) manually
 ```
 pip install torch==1.10.1+cu111 torchvision==0.11.2+cu111 torchaudio==0.10.1 -f https://download.pytorch.org/whl/cu111/torch_stable.html
 ```
+However, you may meet the error like following for torch, and we provide the way to fix this error
+```
+from torch._C import *  # noqa: F403
+ImportError: libtorch_cpu.so: cannot enable executable stack as shared object requires: Invalid argument  
+
+find YOUR_ENV_PATH -name libtorch_cpu.so
+patchelf --clear-execstack YOUR_ENV_PATH/python3.8/site-packages/torch/lib/libtorch_cpu.so
+```
 
 ## NeuralMRF: sequence design for a given protein structure
 
