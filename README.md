@@ -158,10 +158,22 @@ The repository provides example files for reproducing the main computational ste
 
 ## Citation
 
-If you use OCDesign or the data in this repository, please cite:
+If you use OCDesign or the data in this repository, please cite the manuscript under review.
 
-Objective curriculum-guided design of multi-property proteins.
-Manuscript under review.
+```
+@article {Liu2026.05.25.727596,
+        author = {Liu, Longying and Zhao, Jianquan and Xie, Xiaomin and Xu, Simeng and Ren, Milong and Zhang, Xinru and He, Zaikai and Liu, Fan and Yu, Chungong and Wang, Kun and Wang, Xinglong and Liang, Xinmiao and Ye, Xianlong and Bu, Dongbo and Zhou, Han},
+        title = {Objective curriculum-guided design of multi-property proteins},
+        elocation-id = {2026.05.25.727596},
+        year = {2026},
+        doi = {10.64898/2026.05.25.727596},
+        publisher = {Cold Spring Harbor Laboratory},
+        abstract = {Designing functional proteins that simultaneously possess multiple biochemical properties remains a significant challenge, as key protein properties, such as solubility, stability, binding affinity, and chemical resistance, are often interdependent or even conflicting. Current approaches typically attempt to jointly optimize multiple functional objectives in one shot, followed by extensive screening to identify rare feasible designs. Here, we introduce OCDesign, an objective curriculum-guided framework for multi-property protein design. OCDesign is based on the objective curriculum principle, which states that the order in which objectives are introduced can shape the accessibility of functional solutions. In each design round of OCDesign, candidate sequences are generated in silico, assessed across multiple properties, selected based on Pareto-optimal trade-offs, and experimentally validated, with each experimental stage testing the role of the newly introduced objective within the curriculum. Using antibody-binding protein A as a model system, we show that one-shot optimization fails to yield functional designs, whereas a staged curriculum{\textemdash}progressing from solubility and structural consistency to binding affinity, and then to alkaline resistance{\textemdash}enables the design of proteins possessing multiple desired properties through substantially fewer wet-lab experiments. These results establish OCDesign as a practical computational{\textendash}experimental strategy for organizing and integrating multiple objectives in protein design, and suggest that objective ordering is a key determinant of accessibility in high-dimensional design spaces.Competing Interest StatementThe authors have declared no competing interest.the National Key Research and Development Program of China, 2024YFC3405501the National Natural Science Foundation of China, 32271297the Jiangxi Provincial Key Research and Development Program, 2025BAC250061the Special Fund for Digital Economy on Budgetary Infrastructure Investment of Jiangxi Province, 2506-360000-04-04-511042},
+        URL = {https://www.biorxiv.org/content/early/2026/05/29/2026.05.25.727596},
+        eprint = {https://www.biorxiv.org/content/early/2026/05/29/2026.05.25.727596.full.pdf},
+        journal = {bioRxiv}
+}
+```
 
 The citation will be updated after publication.
 
